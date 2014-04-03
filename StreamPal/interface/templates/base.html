@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    {% block head %} {% endblock %}
+    <title>{% block title %} {% endblock %}</title>
+
+
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url "index" %}">StreamBuddy</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          {% if user.is_authenticated %}
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="{% url "home" %}" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "home" %}">Home</a></li>
+                <li><a href="#">Better Stuff</a></li>
+                <li><a href="#">The Best of Stuff </a></li>
+                <li><a href="{% url "logout" %}">Logout </a></li>
+              </ul>
+            </li>
+          </ul>
+          {% else %}
+          <form class="navbar-form navbar-right" role="form" id="login_form" method="post" action="/user_login">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control" name="username" value= "">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password" value = "">
+            </div>
+            <button type="submit" value="submit" class="btn btn-success">Sign in</button>
+          </form>
+          {% endif %}
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+    {% block content %} {% endblock %}
+
+      <hr>
+
+      <footer>
+        <p>&copy; StreamBuddy 2014</p>
+      </footer>
+    </div> 
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

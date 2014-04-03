@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} StreamBuddy!! {% endblock %}
+
+{% block content %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Keep It Interactive!</h1>
+        <p>Streaming can be difficult, and keeping your audience involved is a complicated task. Let us make your life easier. Your
+          Streambuddy will provide a central place to create polls, message subscribers, and track your activities. Let us make your stream
+          easier!</p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="{% url "sign_up" %}">Sign up! &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Polls</h2>
+          <p>Quickly create new polls with an address based off your StreamBuddy profile. No need to use random strawpoll links or anything else. 
+          Now you can easily create and track new polls, and your viewers have one central link to participate. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Community</h2>
+          <p>Foster a sense of community with your subscribers. A small custom forum is available for your subscribers. You can also easily post
+          announcements on your home page! </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Persistent Online Presence</h2>
+          <p>Your own customizable homepage will allow you to shape your online presence. When your stream is active it will show up in our
+            streaming directory and allow you to give people a reason to watch. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+{% endblock %}
+

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="../static/css/sign_up.css" rel="stylesheet" >
+{% endblock %}
+
+{% block title %} Sign up! {% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="well">
+    <form id="signup" class="form-horizontal" method="post" action="/sign_up">
+      {% csrf_token %}
+    <legend>Sign Up</legend>
+    <div class="control-group">
+          <label class="control-label" for="id_{{ user_form.username.name }}">Username</label>
+      <div class="controls">
+          <div class="input-prepend">
+        <span class="add-on"><i class="icon-user"></i></span>
+          <input type="text" class="input-xlarge" id="id_{{ user_form.username.name }}" name="{{ user_form.username.name }}" placeholder="Username">
+        </div>
+      </div>
+    </div>
+    <div class="control-group" for="id_{{ profile_form.display_name.name }}">
+          <label class="control-label" for="id_{{ profile_form.display_name.name }}">Display Name</label>
+      <div class="controls">
+          <div class="input-prepend">
+        <span class="add-on"><i class="icon-user"></i></span>
+          <input type="text" class="input-xlarge" id="id_{{ profile_form.display_name.name }}" name="{{ profile_form.display_name.name }}" placeholder="Display Name">
+        </div>
+      </div>
+    </div>
+    <div class="control-group">
+          <label class="control-label" for="id_{{ user_form.email.name }}">Email</label>
+      <div class="controls">
+          <div class="input-prepend">
+        <span class="add-on"><i class="icon-envelope"></i></span>
+          <input type="text" class="input-xlarge" id="id_{{ user_form.email.name }}" name="{{ user_form.email.name }}" placeholder="Email">
+        </div>
+      </div>
+    </div>
+    <div class="control-group">
+          <label class="control-label" for="id_{{ user_form.password.name }}">Password</label>
+      <div class="controls">
+          <div class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span>
+          <input type="Password" id="id_{{ user_form.password.name }}" class="input-xlarge" name="{{ user_form.password.name }}" 
+          placeholder="Password">
+        </div>
+      </div>
+    </div>
+    <div class="control-group">
+          <label class="control-label">Confirm Password</label>
+      <div class="controls">
+          <div class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span>
+          <input type="Password" id="conpasswd" class="input-xlarge" name="conpasswd" placeholder="Re-enter Password">
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+    <label class="control-label"></label>
+        <div class="controls">
+         <button type="submit" class="btn btn-success" >Create My Account</button>
+
+        </div>
+
+  </div>
+
+</form>
+<script type="text/javascript">
+$(document).ready(function(){
+
+$("#signup").validate({
+rules:{
+{{ user_form.username.name }}:"required",
+{{ profile_form.display_name.name }}:"required",
+{{ user_form.email.name }}:{
+required:true,
+email: true
+},
+{{ user_form.password.name }}:{
+required:true,
+minlength: 8
+},
+conpasswd:{
+required:true,
+equalTo: "#{{ user_form.password.name }}"
+},
+
+errorClass: "help-inline"
+
+});
+});
+</script>
+
+{% endblock %}
