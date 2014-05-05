@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^user_login', 'interface.views.user_login', name='user_login'),
     url(r'^home', 'interface.views.user_home', name='home'),
     url(r'^logout', 'interface.views.user_logout', name='logout'),
+    url(r'^streamers/(?P<name>\w+)', 'interface.views.profile_page', name='profile'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

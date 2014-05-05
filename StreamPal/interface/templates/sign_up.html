@@ -8,6 +8,17 @@
 
 {% block content %}
 <div class="container">
+
+{% if user_errors %}
+<div class="alert alert-danger">
+  {{ user_errors }}
+</div>
+
+{% elif profile_errors %}
+<div class="alert alert-danger">
+  {{ profile_errors }}
+</div>
+{% endif %}
 <div class="well">
     <form id="signup" class="form-horizontal" method="post" action="/sign_up">
       {% csrf_token %}

@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 from interface.forms import UserForm, UserProfileForm
 from interface.models import UserProfile 
@@ -11,13 +12,16 @@ from interface.models import UserProfile
 def home_page(request):
 	context = RequestContext(request)
 	return render_to_response('index.html', 
-		{'registered' : request.user.is_authenticated()}, context)
+		{}, context)
 
 @login_required
 def user_home(request):
 	context = RequestContext(request)
+	user = request.user
+	followers = user.profile.get_followers()
+	following = user.profile.get_following()
 	return render_to_response('home.html',
-		{},
+		{'followers': followers, 'following' : following},
 		context)
 
 @login_required
@@ -51,8 +55,6 @@ def sign_up(request):
 			#If user supplied picture add to model
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
-			else:
-				profile.picture = "/static/images/default_pic.jpg"
 
 			profile.save()
 			registered = True
@@ -102,3 +104,14 @@ def user_login(request):
 	else:
 		#This request is not a POST. 
 		return render_to_response('user_login.html', {}, context)
+
+def profile_page(request, name):
+	context = RequestContext(request)
+	try:
+		profile = UserProfile.objects.get(display_name=name)
+	except ObjectDoesNotExist:
+		return render_to_response('profile.html', {'display_name': 'Does Not Exist'}, context)
+
+	return render_to_response('profile.html', {'display_name': profile.display_name,
+		'join_date' : profile.user.date_joined, 'profile_picture' : profile.picture,
+		'website' : profile.website}, context)
